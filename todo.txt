@@ -1,0 +1,35 @@
+BACKEND :
+
+add following requests : 
+- get version 
+
+- create user
+- delete user
+- get user
+
+- create list
+- delete list
+- get list
+- modify list
+
+- create film
+- delete film
+- get film
+- modify film ? (do it if retrieving reviews isn't dynamic)
+
+- create review
+- delete review
+- get review 
+
+- maybe user authentication could be great
+
+methods to use :
+- POST for create
+- DELETE for delete
+- GET for get
+- PUT for modify
+
+***
+FRONTEND : 
+
+everything.
