@@ -1,11 +1,11 @@
 BACKEND :
 
 add following requests : 
-- get version 
+- get version                                                       Done
 
-- create user
-- delete user
-- get user
+- create user                                                       Done
+- delete user                                                       Done
+- get user                                                          Done
 
 - create list
 - delete list
