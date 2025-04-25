@@ -12,14 +12,14 @@ add following requests :
 - get list
 - modify list
 
-- create film
-- delete film
-- get film
-- modify film ? (do it if retrieving reviews isn't dynamic)
+- create film                                                       Done
+- delete film                                                       Done
+- get film                                                          Done
 
-- create review
-- delete review
-- get review 
+- create review                                                     Done
+- delete review                                                     Done
+- get review                                                        Done
+- get reviews for a certain film                                    Done
 
 - maybe user authentication could be great
 

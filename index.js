@@ -33,8 +33,8 @@ app.get("/c", (req, res) => {
 }); */
 
 app.use("/user", require("./routes/user"));
-//app.use("/review", require("./routes/review"));
-//app.use("/film", require("./routes/film"));
+app.use("/review", require("./routes/review"));
+app.use("/film", require("./routes/film"));
 //app.use("/list", require("./routes/list"));
 
 app.use("/version", require("./routes/version"));
