@@ -17,7 +17,9 @@
   },
   "homepage": "https://github.com/EmiTristoun/Unicorn-BCAA-Project#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^5.1.0",
+    "react": "^19.1.0",
     "sqlite3": "^5.1.7"
   }
 }
