@@ -8,7 +8,7 @@ app.get("/:id", async (req, res) => {
     const { id } = req.params;
 
     if (id === '*') {
-        db.all("SELECT * FROM user", [], (err, rows) => {
+        db.all("SELECT id, name, email FROM user", [], (err, rows) => {
             if (err) {
                 throw err;
             }
@@ -18,7 +18,7 @@ app.get("/:id", async (req, res) => {
 
     else {
         let exist = false;
-        db.get("SELECT * FROM user WHERE id = ?", [id], (err, row) => {
+        db.get("SELECT id, name, email FROM user WHERE id = ?", [id], (err, row) => {
             if (err) {
                 throw err;
             }

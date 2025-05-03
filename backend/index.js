@@ -5,11 +5,7 @@ const path = require("path");
 const db = require("./database.js").db;
 const cors = require("cors");
 
-app.use(cors()); // Enable CORS for all routes
-
-app.get("/", (req, res) => {
-    res.send("<h1>I am OK!</h1>");
-});
+//app.use(cors()); // Enable CORS for all routes
 
 app.use("/user", require("./routes/user"));
 app.use("/review", require("./routes/review"));
