@@ -3,7 +3,7 @@ const app = express();
 const fs = require("fs");
 const path = require("path");
 const db = require("./database.js").db;
-const cors = require("cors");
+//const cors = require("cors");
 
 //app.use(cors()); // Enable CORS for all routes
 
