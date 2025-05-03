@@ -1,3 +1,7 @@
 # Unicorn-BCAA-Project
 
-test
+To launch the backend, go into the backend directory and use 
+
+```sh
+node index.js
+```
