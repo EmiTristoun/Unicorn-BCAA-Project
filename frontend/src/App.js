@@ -40,15 +40,6 @@ function FilmPageWrapper() {
   );
 }
 
-function ProfilePageWrapper() {
-  const { id } = useParams();
-  return (
-    <div style={{ paddingTop: '60px' }}>
-      <Profile id={id} />
-    </div>
-  );
-}
-
 function App() {
   return (
     <Router>

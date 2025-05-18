@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function FilmPage({ id }) {
@@ -17,7 +17,7 @@ function FilmPage({ id }) {
   const [userNames, setUserNames] = useState({});
   const navigate = useNavigate();
 
-  async function fetchReviews() {
+  const fetchReviews = useCallback(async () => {
     try {
       const response = await fetch(`https://backend-absolute-cinema.onrender.com/review/*?film_id=${id}`);
       if (!response.ok) {
@@ -27,19 +27,24 @@ function FilmPage({ id }) {
       setReviews(data);
 
       const uniqueUserIds = [...new Set(data.map(r => r.user_id))];
-      const names = {};
-      await Promise.all(uniqueUserIds.map(async (userId) => {
-        if (!userNames[userId]) {
-          try {
-            const res = await fetch(`https://backend-absolute-cinema.onrender.com/user/${userId}`);
-            if (res.ok) {
-              const userData = await res.json();
-              names[userId] = userData.name;
-            }
-          } catch {}
-        }
-      }));
-      setUserNames(prev => ({ ...prev, ...names }));
+      setUserNames(prev => {
+        const names = {};
+        const fetches = uniqueUserIds.map(async (userId) => {
+          if (!prev[userId]) {
+            try {
+              const res = await fetch(`https://backend-absolute-cinema.onrender.com/user/${userId}`);
+              if (res.ok) {
+                const userData = await res.json();
+                names[userId] = userData.name;
+              }
+            } catch {}
+          }
+        });
+        Promise.all(fetches).then(() => {
+          setUserNames(current => ({ ...current, ...names }));
+        });
+        return prev;
+      });
 
       if (data.length > 0) {
         const totalRating = data.reduce((sum, review) => sum + review.rating, 0);
@@ -50,7 +55,7 @@ function FilmPage({ id }) {
     } catch (err) {
       setError(err.message);
     }
-  }
+  }, [id]);
 
   useEffect(() => {
     async function fetchFilm() {
@@ -82,7 +87,7 @@ function FilmPage({ id }) {
 
     fetchFilm();
     fetchReviews();
-  }, [id]);
+  }, [id, fetchReviews]);
 
   const handleAddToList = async (e) => {
     e.preventDefault();
