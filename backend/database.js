@@ -61,15 +61,38 @@ function createTables(db) {
         console.log('Created the table.');
     });
 
-    //create the list table
+    //create the list table (metadata for lists)
     sql = `CREATE TABLE IF NOT EXISTS list (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL,
         user_id INTEGER NOT NULL,
-        film_id INTEGER ,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (user_id) REFERENCES user (id),
+        FOREIGN KEY (user_id) REFERENCES user (id)
+    )`;
+
+    db.run(sql, [], (err) => {
+        if (err) {
+            console.error(err.message);
+        }
+        console.log('Created the list table.');
+    });
+
+    //create the list_film table (many-to-many relationship between lists and films)
+    sql = `CREATE TABLE IF NOT EXISTS list_film (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        list_id INTEGER NOT NULL,
+        film_id INTEGER NOT NULL,
+        added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (list_id) REFERENCES list (id),
         FOREIGN KEY (film_id) REFERENCES film (id)
     )`;
+
+    db.run(sql, [], (err) => {
+        if (err) {
+            console.error(err.message);
+        }
+        console.log('Created the list_film table.');
+    });
 }
 
 createTables(db);

@@ -3,14 +3,14 @@ const app = express();
 const fs = require("fs");
 const path = require("path");
 const db = require("./database.js").db;
-//const cors = require("cors");
+const cors = require("cors");
 
-//app.use(cors()); // Enable CORS for all routes
+app.use(cors()); // Enable CORS for all routes
 
 app.use("/user", require("./routes/user"));
 app.use("/review", require("./routes/review"));
 app.use("/film", require("./routes/film"));
-//app.use("/list", require("./routes/list"));
+app.use("/list", require("./routes/list"));
 
 app.use("/version", require("./routes/version"));
 

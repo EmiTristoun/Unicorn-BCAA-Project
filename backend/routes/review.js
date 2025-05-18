@@ -119,21 +119,45 @@ app.post("/", async (req, res) => {
 
 app.delete("/:id", async (req, res) => {
     const { id } = req.params;
-    const film_id = req.body.film_id;
+    film_id = 0;
 
-    if (id === '*') {
-        if (!film_id) {
-            return res.status(400).send("<h1>missing film_id</h1>");
-        }
-        await db.run("DELETE FROM review WHERE film_id = ?", [film_id]);
-        return res.send("<h1>all reviews deleted for film with id n° </h1>" + film_id);
+    try {
+        film_id = req.body.film_id;
+    }
+    catch (err) {
+        film_id = 0;
     }
 
     try {
-        await db.run("DELETE FROM review WHERE id = ?", [id]);
-        res.send("<h1>review deleted</h1>");
+        if (id === '*') {
+            if (film_id !== 0) {
+                // Delete all reviews for the specified film
+                db.run("DELETE FROM review WHERE film_id = ?", [film_id], (err) => {
+                    if (err) {
+                        return res.status(500).send("<h1>Error deleting reviews for film:</h1> " + err.message);
+                    }
+                    return res.send(`<h1>All reviews deleted for film with id ${film_id}</h1>`);
+                });
+            } else {
+                // Delete all reviews in the database
+                db.run("DELETE FROM review", [], (err) => {
+                    if (err) {
+                        return res.status(500).send("<h1>Error deleting all reviews:</h1> " + err.message);
+                    }
+                    return res.send("<h1>All reviews deleted</h1>");
+                });
+            }
+        } else {
+            // Delete a specific review by ID
+            db.run("DELETE FROM review WHERE id = ?", [id], (err) => {
+                if (err) {
+                    return res.status(500).send("<h1>Error deleting review:</h1> " + err.message);
+                }
+                return res.send(`<h1>Review with id ${id} deleted</h1>`);
+            });
+        }
     } catch (err) {
-        res.send("<h1>error : </h1>" + err.message);
+        res.status(500).send("<h1>Error:</h1> " + err.message);
     }
 });
 
