@@ -13,7 +13,7 @@ function SearchResults() {
   useEffect(() => {
     async function fetchSearchResults() {
       try {
-        const response = await fetch(`http://localhost:3001/film/*`);
+        const response = await fetch(`https://backend-absolute-cinema.onrender.com/film/*`);
         const data = await response.json();
 
         // Filter results based on the query

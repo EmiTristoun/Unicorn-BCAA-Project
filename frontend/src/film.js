@@ -19,7 +19,7 @@ function FilmPage({ id }) {
 
   async function fetchReviews() {
     try {
-      const response = await fetch(`http://localhost:3001/review/*?film_id=${id}`);
+      const response = await fetch(`https://backend-absolute-cinema.onrender.com/review/*?film_id=${id}`);
       if (!response.ok) {
         throw new Error(`Error fetching reviews: ${response.statusText}`);
       }
@@ -31,7 +31,7 @@ function FilmPage({ id }) {
       await Promise.all(uniqueUserIds.map(async (userId) => {
         if (!userNames[userId]) {
           try {
-            const res = await fetch(`http://localhost:3001/user/${userId}`);
+            const res = await fetch(`https://backend-absolute-cinema.onrender.com/user/${userId}`);
             if (res.ok) {
               const userData = await res.json();
               names[userId] = userData.name;
@@ -55,7 +55,7 @@ function FilmPage({ id }) {
   useEffect(() => {
     async function fetchFilm() {
       try {
-        const response = await fetch(`http://localhost:3001/film/${id}`);
+        const response = await fetch(`https://backend-absolute-cinema.onrender.com/film/${id}`);
         if (!response.ok) {
           throw new Error(`Error fetching film: ${response.statusText}`);
         }
@@ -72,7 +72,7 @@ function FilmPage({ id }) {
       const userId = JSON.parse(atob(token.split('.')[1])).id;
       setCurrentUserId(userId);
 
-      fetch(`http://localhost:3001/list/*`, {
+      fetch(`https://backend-absolute-cinema.onrender.com/list/*`, {
         headers: { Authorization: `Bearer ${token}` }
       })
         .then(res => res.ok ? res.json() : Promise.reject('Failed to fetch lists'))
@@ -89,7 +89,7 @@ function FilmPage({ id }) {
     const token = localStorage.getItem('token');
     if (!selectedListId) return;
     try {
-      const response = await fetch(`http://localhost:3001/list/${selectedListId}/film`, {
+      const response = await fetch(`https://backend-absolute-cinema.onrender.com/list/${selectedListId}/film`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -119,7 +119,7 @@ function FilmPage({ id }) {
     }
 
     try {
-      const response = await fetch('http://localhost:3001/review', {
+      const response = await fetch('https://backend-absolute-cinema.onrender.com/review', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -150,7 +150,7 @@ function FilmPage({ id }) {
 
   const handleDeleteReview = async (reviewId) => {
     try {
-      const response = await fetch(`http://localhost:3001/review/${reviewId}`, {
+      const response = await fetch(`https://backend-absolute-cinema.onrender.com/review/${reviewId}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,

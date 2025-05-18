@@ -20,7 +20,7 @@ function ListPage() {
 
     async function fetchList() {
       try {
-        const response = await fetch(`http://localhost:3001/list/${id}`);
+        const response = await fetch(`https://backend-absolute-cinema.onrender.com/list/${id}`);
         if (!response.ok) {
           throw new Error('Failed to fetch list');
         }
@@ -36,7 +36,7 @@ function ListPage() {
   const handleRemoveFilm = async (filmId) => {
     const token = localStorage.getItem('token');
     try {
-      const response = await fetch(`http://localhost:3001/list/${id}/film/${filmId}`, {
+      const response = await fetch(`https://backend-absolute-cinema.onrender.com/list/${id}/film/${filmId}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,

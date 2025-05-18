@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:3001';
+const BASE_URL = 'https://backend-absolute-cinema.onrender.com';
 
 export const getVersion = async () => {
     const response = await fetch(`${BASE_URL}/version`);

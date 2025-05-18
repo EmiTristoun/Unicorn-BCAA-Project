@@ -21,12 +21,12 @@ function Profile() {
   }
 
   useEffect(() => {
-    fetch(`http://localhost:3001/user/${id}`)
+    fetch(`https://backend-absolute-cinema.onrender.com/user/${id}`)
       .then(res => res.ok ? res.json() : Promise.reject('Failed to fetch user'))
       .then(data => setUser(data))
       .catch(() => setError('Failed to fetch user info.'));
 
-    fetch(`http://localhost:3001/list/*`)
+    fetch(`https://backend-absolute-cinema.onrender.com/list/*`)
       .then(res => res.ok ? res.json() : Promise.reject('Failed to fetch lists'))
       .then(data => setLists(data.filter(list => list.user_id === Number(id))))
       .catch(() => setError('Failed to fetch lists.'));
@@ -44,7 +44,7 @@ function Profile() {
       return;
     }
     try {
-      const response = await fetch('http://localhost:3001/list', {
+      const response = await fetch('https://backend-absolute-cinema.onrender.com/list', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -61,7 +61,7 @@ function Profile() {
       }
       setShowCreateForm(false);
       setNewListName('');
-      fetch(`http://localhost:3001/list/*`)
+      fetch(`https://backend-absolute-cinema.onrender.com/list/*`)
         .then(res => res.ok ? res.json() : Promise.reject('Failed to fetch lists'))
         .then(data => setLists(data.filter(list => list.user_id === Number(id))))
         .catch(() => setError('Failed to fetch lists.'));
